@@ -51,7 +51,10 @@ public class ThrowWeapon : MonoBehaviour
     }
 
     private Vector3 CalculateForceDirection() {
+        
         Vector3 forceDirection = cam.transform.forward;
+        // TODO add a little bit of offset to the left so it goes straight
+        // when not hitting and object, right now it goes to the right
 
         RaycastHit hit;
 

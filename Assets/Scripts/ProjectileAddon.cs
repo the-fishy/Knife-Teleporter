@@ -27,7 +27,8 @@ public class ProjectileAddon : MonoBehaviour
             //rb.angularVelocity = Vector3.zero;
 
             // make projectile move with object it collided with
-            //transform.SetParent(collision.transform, true);
+            //Destroy(rb);
+            transform.SetParent(collision.transform, true);
         }
 
     }
