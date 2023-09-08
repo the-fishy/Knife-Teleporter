@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5456006001844748471}
   - component: {fileID: 8317858027568426463}
   - component: {fileID: -1371084726798443275}
-  m_Layer: 0
+  - component: {fileID: 960984358239486267}
+  m_Layer: 7
   m_Name: throwingBlade
-  m_TagString: Untagged
+  m_TagString: Knife
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,7 +55,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -95,6 +96,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8806247b3c5a80f4bbb8552f834fa6df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &960984358239486267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354085539179183842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec70b484111f97a48900e74522e73548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportKey: 49
 --- !u!1 &919132149155446097
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: -8679921383154817045}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: throwingBlade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +152,7 @@ GameObject:
   - component: {fileID: 1151388028547126963}
   - component: {fileID: -6400281290468069383}
   - component: {fileID: -7635826562936255635}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}

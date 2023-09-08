@@ -14,11 +14,14 @@ public class ThrowWeapon : MonoBehaviour
     [SerializeField] float throwCooldown;
 
     [Header("Throwing")]
-    [SerializeField] KeyCode throwKey = KeyCode.Mouse0;
+    KeyCode throwKey = KeyCode.Mouse1;
     [SerializeField] float throwForce;
     [SerializeField] float throwUpwardForce;
 
-    bool readyToThrow;
+    [Header("Recalling")]
+    KeyCode recallKey = KeyCode.Alpha1;
+
+    [SerializeField] bool readyToThrow;
 
     void Start(){
         readyToThrow = true;
@@ -28,6 +31,13 @@ public class ThrowWeapon : MonoBehaviour
         if (Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0) {
             Throw();
         }
+        else if (Input.GetKeyDown(recallKey) && !readyToThrow) {
+            RecallWeapon();
+        }
+    }
+
+    public bool WeaponThrown() {
+        return !readyToThrow;
     }
 
     void Throw() {
@@ -50,6 +60,15 @@ public class ThrowWeapon : MonoBehaviour
         Invoke(nameof(ResetThrow), throwCooldown);
     }
 
+    public void increaseThrowCounter() {
+        totalThrows++;
+    }
+
+    void RecallWeapon() {
+        totalThrows++;
+        Invoke(nameof(ResetThrow), throwCooldown);
+    }
+
     private Vector3 CalculateForceDirection() {
         
         Vector3 forceDirection = cam.transform.forward;
@@ -68,8 +87,5 @@ public class ThrowWeapon : MonoBehaviour
     void ResetThrow() {
         readyToThrow = true;
     }
-
-
-
 
 }
