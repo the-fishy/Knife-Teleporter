@@ -10,12 +10,12 @@ public class TeleportPlayerToThis : MonoBehaviour
 
     TimeScaler timeScaler;
     ThrowWeapon throwWeapon;
-    ProjectileStickToObject projectileStickToObject;
+    ProjectileCollider projectileCollider;
 
 
     void Start()
     {
-        projectileStickToObject = GetComponent<ProjectileStickToObject>();
+        projectileCollider = GetComponent<ProjectileCollider>();
         player = GameObject.FindGameObjectWithTag("Player");
         throwWeapon = player.GetComponent<ThrowWeapon>();
         timeScaler = GameObject.FindGameObjectWithTag("GameManager").GetComponent<TimeScaler>();
