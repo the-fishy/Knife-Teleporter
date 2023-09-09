@@ -41,9 +41,11 @@ public class ThrowWeapon : MonoBehaviour
     }
 
     void Throw() {
+        // Play throw animation at certain time throw object, destroy one in hand
+
         readyToThrow = false;
 
-        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
+        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, attackPoint.rotation);
 
         Vector3 forceDirection = CalculateForceDirection();
 
@@ -56,6 +58,8 @@ public class ThrowWeapon : MonoBehaviour
         projectileRigidBody.AddForce(forceToAdd, ForceMode.Impulse);
 
         totalThrows--;
+
+        
 
         Invoke(nameof(ResetThrow), throwCooldown);
     }
@@ -74,6 +78,9 @@ public class ThrowWeapon : MonoBehaviour
         Vector3 forceDirection = cam.transform.forward;
         // TODO add a little bit of offset to the left so it goes straight
         // when not hitting and object, right now it goes to the right
+
+        // closer distance is, less upward force
+        
 
         RaycastHit hit;
 
