@@ -21,6 +21,9 @@ public class ThrowWeapon : MonoBehaviour
     [Header("Recalling")]
     KeyCode recallKey = KeyCode.Alpha1;
 
+    [SerializeField] Animator throwableAnimator;
+    [SerializeField] GameObject bladeSway;
+
     [SerializeField] bool readyToThrow;
 
     void Start(){
@@ -29,7 +32,8 @@ public class ThrowWeapon : MonoBehaviour
 
     void Update(){
         if (Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0) {
-            Throw();
+            throwableAnimator.SetTrigger("Throw");
+            Invoke(nameof(Throw), 0.5f);
         }
         else if (Input.GetKeyDown(recallKey) && !readyToThrow) {
             RecallWeapon();
@@ -59,7 +63,8 @@ public class ThrowWeapon : MonoBehaviour
 
         totalThrows--;
 
-        
+        ChangeGameObjectVisibility(bladeSway);
+
 
         Invoke(nameof(ResetThrow), throwCooldown);
     }
@@ -71,6 +76,10 @@ public class ThrowWeapon : MonoBehaviour
     void RecallWeapon() {
         totalThrows++;
         Invoke(nameof(ResetThrow), throwCooldown);
+    }
+
+    void ChangeGameObjectVisibility(GameObject gameobject) {
+        gameobject.SetActive(!gameobject.activeSelf);
     }
 
     private Vector3 CalculateForceDirection() {
@@ -93,6 +102,7 @@ public class ThrowWeapon : MonoBehaviour
 
     void ResetThrow() {
         readyToThrow = true;
+        ChangeGameObjectVisibility(bladeSway);
     }
 
 }
