@@ -671,13 +671,14 @@ MonoBehaviour:
   attackPoint: {fileID: 1116932981}
   objectToThrow: {fileID: 7591346101983374884, guid: 56c5ebb5c6c2d704590f8d14332d7a43,
     type: 3}
-  totalThrows: 1
-  throwCooldown: 1
+  totalThrows: 100
+  throwCooldown: 2
   throwForce: 35
   throwUpwardForce: 1
   throwableAnimator: {fileID: 1646113228}
   bladeSway: {fileID: 1646113225}
   readyToThrow: 0
+  throwCoRoutineRunning: 0
 --- !u!1001 &540316952
 PrefabInstance:
   m_ObjectHideFlags: 0

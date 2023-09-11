@@ -26,6 +26,8 @@ public class ThrowWeapon : MonoBehaviour
 
     [SerializeField] bool readyToThrow;
 
+    [SerializeField] bool throwCoRoutineRunning;
+
     void Start(){
         readyToThrow = true;
     }
@@ -66,7 +68,29 @@ public class ThrowWeapon : MonoBehaviour
         ChangeGameObjectVisibility(bladeSway);
 
 
-        Invoke(nameof(ResetThrow), throwCooldown);
+        //Invoke(nameof(ResetThrow), throwCooldown);
+        StartCoroutine(ThrowCooldown());
+    }
+
+    public bool GetThrowCoRoutineState() {
+        return throwCoRoutineRunning;
+    }
+
+    // Breaking when teleport since I destroy object
+
+    // TODO fix coroutine not working after teleporting
+
+    IEnumerator ThrowCooldown() {
+        Debug.Log("Start throw cooldown");
+        throwCoRoutineRunning = true;
+        yield return new WaitForSeconds(throwCooldown);
+        Debug.Log("Middle throw cooldown");
+        readyToThrow = true;
+        if (totalThrows > 0) {
+            ChangeGameObjectVisibility(bladeSway);
+        }
+        throwCoRoutineRunning = false;
+        Debug.Log("End throw cooldown");
     }
 
     public void increaseThrowCounter() {
@@ -74,7 +98,7 @@ public class ThrowWeapon : MonoBehaviour
     }
 
     void RecallWeapon() {
-        totalThrows++;
+        increaseThrowCounter();
         Invoke(nameof(ResetThrow), throwCooldown);
     }
 
@@ -102,7 +126,9 @@ public class ThrowWeapon : MonoBehaviour
 
     void ResetThrow() {
         readyToThrow = true;
-        ChangeGameObjectVisibility(bladeSway);
+        if (totalThrows > 0) {
+            ChangeGameObjectVisibility(bladeSway);
+        }
     }
 
 }

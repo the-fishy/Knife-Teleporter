@@ -30,10 +30,30 @@ public class TeleportPlayerToThis : MonoBehaviour
             player.transform.position = transform.position;
             player.SetActive(true);
 
-            Destroy(this.gameObject);
+
+            //Destroy(this.gameObject);
+            DestroyWeapon();
             throwWeapon.increaseThrowCounter();
         }
     }
 
+    void DestroyWeapon() {
+        Debug.Log("Destroy Called " + throwWeapon.GetThrowCoRoutineState());
+        if (!throwWeapon.GetThrowCoRoutineState()) {
+            Debug.Log("Destroy Weapon");
+            Destroy(this.gameObject);
+            return;
+        }
+
+        if (this.GetComponent<MeshRenderer>().enabled) {
+            this.GetComponent<MeshRenderer>().enabled = false;
+            this.GetComponent<MeshCollider>().enabled = false;
+        }
+
+
+        Invoke(nameof(DestroyWeapon), 1f);
+
+
+    }
 
 }
