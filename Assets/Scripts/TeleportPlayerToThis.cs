@@ -17,7 +17,7 @@ public class TeleportPlayerToThis : MonoBehaviour
     {
         projectileCollider = GetComponent<ProjectileCollider>();
         player = GameObject.FindGameObjectWithTag("Player");
-        throwWeapon = player.GetComponent<ThrowWeapon>();
+        throwWeapon = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<ThrowWeapon>();
         timeScaler = GameObject.FindGameObjectWithTag("GameManager").GetComponent<TimeScaler>();
     }
 
@@ -38,9 +38,7 @@ public class TeleportPlayerToThis : MonoBehaviour
     }
 
     void DestroyWeapon() {
-        Debug.Log("Destroy Called " + throwWeapon.GetThrowCoRoutineState());
         if (!throwWeapon.GetThrowCoRoutineState()) {
-            Debug.Log("Destroy Weapon");
             Destroy(this.gameObject);
             return;
         }
@@ -50,9 +48,7 @@ public class TeleportPlayerToThis : MonoBehaviour
             this.GetComponent<MeshCollider>().enabled = false;
         }
 
-
         Invoke(nameof(DestroyWeapon), 1f);
-
 
     }
 

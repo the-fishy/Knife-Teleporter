@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -22,18 +23,23 @@ public class ProjectileCollider : MonoBehaviour
             targetHit = true;
 
             // makes projectile stick to surface
-            rb.isKinematic = true;
+            try {
+                rb.isKinematic = true;
 
-            // NEED to have hit objects scale to be 1 to use this
-            transform.SetParent(collision.transform);
+                // NEED to have hit objects scale to be 1 to use this
+                transform.SetParent(collision.transform);
+            } catch (Exception e) {
+                Debug.Log("Error");
+            }
+            
         } else {
             rb.drag = dragIncrease;
-        rb.mass *= massIncrease;
-        // TODO increase velocity decrease amount by ray cast out distance
-        // TODO increase upwards force by ray cast out distance
+            rb.mass *= massIncrease;
+            // TODO increase velocity decrease amount by ray cast out distance
+            // TODO increase upwards force by ray cast out distance
 
-        rb.velocity *= velocityDecreaseAmount;
-        rb.angularVelocity *= velocityDecreaseAmount;
+            rb.velocity *= velocityDecreaseAmount;
+            rb.angularVelocity *= velocityDecreaseAmount;
             //StartCoroutine(nameof(DecreaseVelocity));
 
         }

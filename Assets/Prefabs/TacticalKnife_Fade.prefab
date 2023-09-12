@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6723666687476565277}
   - component: {fileID: 1253302368923094850}
   - component: {fileID: 3062065188054990880}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TacticalKnife_Fade
   m_TagString: Knife
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ MeshCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

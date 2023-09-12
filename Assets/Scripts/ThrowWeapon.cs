@@ -43,7 +43,8 @@ public class ThrowWeapon : MonoBehaviour
     }
 
     public bool WeaponThrown() {
-        return !readyToThrow;
+        if (totalThrows == 0) { return true; }
+        return false;
     }
 
     void Throw() {
@@ -81,16 +82,13 @@ public class ThrowWeapon : MonoBehaviour
     // TODO fix coroutine not working after teleporting
 
     IEnumerator ThrowCooldown() {
-        Debug.Log("Start throw cooldown");
         throwCoRoutineRunning = true;
         yield return new WaitForSeconds(throwCooldown);
-        Debug.Log("Middle throw cooldown");
         readyToThrow = true;
         if (totalThrows > 0) {
             ChangeGameObjectVisibility(bladeSway);
         }
         throwCoRoutineRunning = false;
-        Debug.Log("End throw cooldown");
     }
 
     public void increaseThrowCounter() {
