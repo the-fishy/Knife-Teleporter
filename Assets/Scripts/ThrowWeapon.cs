@@ -7,6 +7,7 @@ public class ThrowWeapon : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform cam;
     [SerializeField] Transform attackPoint;
+    [SerializeField] Transform attackPointAlt;
     [SerializeField] GameObject objectToThrow;
 
     [Header("Settings")]
@@ -48,26 +49,45 @@ public class ThrowWeapon : MonoBehaviour
     }
 
     void Throw() {
+        Debug.Log("hit object infront at: " + CalculateHitDistance());
+
+        
+        // Ray cast from camera... if out hit < 10 change attackpoint to be -10 in z?
+
         // Play throw animation at certain time throw object, destroy one in hand
 
         readyToThrow = false;
 
-        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, attackPoint.rotation);
+        GameObject projectile;
+        bool addForce = true;
 
-        Vector3 forceDirection = CalculateForceDirection();
+        // TODO if < 1 just drop weapon?
+        float distanceToHit = CalculateHitDistance();
+        if (distanceToHit < 1.4f) {
+            projectile = Instantiate(objectToThrow, attackPointAlt.position, attackPointAlt.rotation);
+            addForce = false;
+        } else if (distanceToHit < 2.25f) {
+            projectile = Instantiate(objectToThrow, attackPointAlt.position, attackPointAlt.rotation);
+        } else {
+            projectile = Instantiate(objectToThrow, attackPoint.position, attackPoint.rotation);
+        }
 
-        // TODO clean projectiles code, maybe just ref projectile and forceDirection?
+        if (addForce) {
+            Vector3 forceDirection = CalculateForceDirection();
 
-        Rigidbody projectileRigidBody = projectile.GetComponent<Rigidbody>();
+            // TODO clean projectiles code, maybe just ref projectile and forceDirection?
 
-        Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+            Rigidbody projectileRigidBody = projectile.GetComponent<Rigidbody>();
 
-        projectileRigidBody.AddForce(forceToAdd, ForceMode.Impulse);
+            Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+
+            projectileRigidBody.AddForce(forceToAdd, ForceMode.Impulse);
+        }
+        
 
         totalThrows--;
 
         ChangeGameObjectVisibility(bladeSway);
-
 
         //Invoke(nameof(ResetThrow), throwCooldown);
         StartCoroutine(ThrowCooldown());
@@ -104,7 +124,17 @@ public class ThrowWeapon : MonoBehaviour
         gameobject.SetActive(!gameobject.activeSelf);
     }
 
-    private Vector3 CalculateForceDirection() {
+    float CalculateHitDistance() {
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(cam.position, cam.forward, out hit, 100f)){
+            return hit.distance;
+        }
+        return 1000f;
+    }
+
+    Vector3 CalculateForceDirection() {
         
         Vector3 forceDirection = cam.transform.forward;
         // TODO add a little bit of offset to the left so it goes straight
