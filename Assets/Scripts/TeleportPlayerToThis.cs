@@ -34,6 +34,8 @@ public class TeleportPlayerToThis : MonoBehaviour
             //Destroy(this.gameObject);
             DestroyWeapon();
             throwWeapon.increaseThrowCounter();
+            throwWeapon.ChangeGameObjectVisibility(throwWeapon.GetThrowableBlade());
+            // cancel change switch boolean
         }
     }
 

@@ -29,6 +29,8 @@ public class ThrowWeapon : MonoBehaviour
 
     [SerializeField] bool throwCoRoutineRunning;
 
+    bool bladeisVisibile;
+
     void Start(){
         readyToThrow = true;
     }
@@ -92,6 +94,9 @@ public class ThrowWeapon : MonoBehaviour
         //Invoke(nameof(ResetThrow), throwCooldown);
         StartCoroutine(ThrowCooldown());
     }
+    public GameObject GetThrowableBlade() {
+        return bladeSway;
+    }
 
     public bool GetThrowCoRoutineState() {
         return throwCoRoutineRunning;
@@ -105,11 +110,13 @@ public class ThrowWeapon : MonoBehaviour
         throwCoRoutineRunning = true;
         yield return new WaitForSeconds(throwCooldown);
         readyToThrow = true;
-        if (totalThrows > 0) {
-            ChangeGameObjectVisibility(bladeSway);
-        }
+        //if (totalThrows > 0 && !bladeisVisibile) {
+        //    ChangeGameObjectVisibility(bladeSway);
+        //}
         throwCoRoutineRunning = false;
     }
+
+    // did not teleport until after throw cooldown. Then teleported
 
     public void increaseThrowCounter() {
         totalThrows++;
@@ -120,7 +127,7 @@ public class ThrowWeapon : MonoBehaviour
         Invoke(nameof(ResetThrow), throwCooldown);
     }
 
-    void ChangeGameObjectVisibility(GameObject gameobject) {
+    public void ChangeGameObjectVisibility(GameObject gameobject) {
         gameobject.SetActive(!gameobject.activeSelf);
     }
 
