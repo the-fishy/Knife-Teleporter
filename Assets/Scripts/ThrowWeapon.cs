@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ThrowWeapon : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class ThrowWeapon : MonoBehaviour
     [SerializeField] bool readyToThrow;
 
     [SerializeField] bool throwCoRoutineRunning;
+    [SerializeField] Image throwSkill;
 
     bool bladeisVisibile;
 
@@ -108,12 +110,14 @@ public class ThrowWeapon : MonoBehaviour
 
     IEnumerator ThrowCooldown() {
         throwCoRoutineRunning = true;
+        throwSkill.color = Color.grey;
         yield return new WaitForSeconds(throwCooldown);
         readyToThrow = true;
         //if (totalThrows > 0 && !bladeisVisibile) {
         //    ChangeGameObjectVisibility(bladeSway);
         //}
         throwCoRoutineRunning = false;
+        throwSkill.color = Color.white;
     }
 
     // did not teleport until after throw cooldown. Then teleported
